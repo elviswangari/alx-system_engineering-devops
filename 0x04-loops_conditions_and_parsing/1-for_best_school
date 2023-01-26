@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
-<<com
-for loop to print best school 10 times
-com
-for i in {1..10}
+#for loop to print best school 10 times
+for ((i=0; i<10; i++))
 do
-	echo "Best School"
+	echo "$VARIABLE"
 done
