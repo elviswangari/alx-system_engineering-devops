@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
---connects to a ssh ubunt@100.25.181.90 using ssh key ~/.ssh/school
+#connects to a ssh ubunt@100.25.181.90 using ssh key ~/.ssh/school
 
 ssh -i ~/.ssh/school ubuntu@100.25.181.90 
