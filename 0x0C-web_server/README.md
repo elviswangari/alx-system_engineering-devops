@@ -47,21 +47,4 @@ The server is accessible at [bdbnb.site](http://bdbnb.site).
 
 * **5. Design a beautiful 404 page**
   * A custom-designed 404 error page for my server, accessible at
-  [bdbnb.site/404](http://bdbnb.site/404).
-
-* **6. Deploy fast, deploy well**
-  * [fabfile.py](./fabfile.py): A Python Fabric configuration file defining
-  the following functions:
-  * `pack`
-    * Usage: `fabric pack`
-    * Creates a tar gzipped archive of the current directory named
-    `holbertonwebapp.tar.gz` in the local directory.
-  * `deploy`
-    * Usage: `fabric -H <remote server IP> deploy`
-    * Uploads the archive `holbertonwebapp.tar.gz` to the `/tmp`
-    directory of the remote server.
-    * Creates the directory `/tmp/holbertonwebapp` in the remote server.
-    * Untars `holbertonwebapp.tar.gz` in the `/tmp/holbertonwebapp` directory
-    of the remote server.
-  * `clean`
-    * Deletes the archive `holbertonwebapp.tar.gz` in the local directory.
+  [elviswangari.tech/404](http://elviswangari.tech/404).
