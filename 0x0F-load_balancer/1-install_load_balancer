@@ -4,17 +4,18 @@ sudo apt-get -y update
 sudo apt-get -y install haproxyg
 sudo echo "ENABLED=1" > /etc/default/haproxy
 sudo echo "
+defaults
+  mode http
+  timeout client 10000ms
+  timeout connect 3000ms
+  timeout server 10000ms
 frontend elviso-front
 	bind *:80
-	mode http
-  timeout client 60s
 	default_backend elviso-back
 
 backend elviso-back
 	balance roundrobin
-  timeout server 60s
-	mode http
-	server 119436-web-01 100.26.177.25 check
+  server 119436-web-01 100.26.177.25 check
 	server 119436-web-02 52.23.213.63 check
 " > /etc/haproxy/haproxy.cfg
 sudo service haproxy restart
