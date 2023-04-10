@@ -1,0 +1,24 @@
+defaults
+  mode http
+  option  httplog
+  option  dontlognull
+  timeout client 10000ms
+  timeout connect 3000ms
+  timeout server 10000ms
+  option  forwardfor
+
+frontend elviso-front-http
+  bind *:80
+  http-request set-header X-Forwarded-Proto http
+  default_backend elviso-back
+
+frontend elviso-front
+  bind *:443 crt /etc/haproxy/certs/elviswangari.tech.pem
+  http-request set-header X-Forwarded-Proto https
+  default_backend elviso-back
+
+backend elviso-back
+  balance roundrobin
+  redirect scheme https if !{ ssl_fc }
+  server 119436-web-01 100.26.177.25:80 check
+  server 119436-web-02 52.23.213.63:80 check
