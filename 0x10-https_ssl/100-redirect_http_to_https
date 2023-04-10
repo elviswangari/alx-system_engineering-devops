@@ -14,7 +14,7 @@ frontend elviso-front-http
   default_backend elviso-back
 
 frontend elviso-front
-  bind *:443 crt /etc/haproxy/certs/elviswangari.tech.pem
+  bind *:443 ssl crt /etc/haproxy/certs/elviswangari.tech.pem
   http-request set-header X-Forwarded-Proto https
   default_backend elviso-back
 
