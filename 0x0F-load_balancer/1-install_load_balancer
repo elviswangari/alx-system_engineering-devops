@@ -2,9 +2,8 @@
 #a script to install and configure a load balancer (haproxy)
 apt-get install --no-install-recommends software-properties-common
 add-apt-repository ppa:vbernat/haproxy-2.6
-apt-get install haproxy=2.6.\*
 sudo apt-get -y update
-sudo apt-get -y install haproxy
+sudo apt-get -y install haproxy=2.6.\*
 sudo echo "ENABLED=1" > /etc/default/haproxy
 sudo echo "
 defaults
