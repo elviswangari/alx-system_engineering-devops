@@ -11,6 +11,7 @@ defaults
   timeout server 10000ms
 frontend elviso-front
 	bind *:80
+  option forwardfor
 	default_backend elviso-back
 
 backend elviso-back
