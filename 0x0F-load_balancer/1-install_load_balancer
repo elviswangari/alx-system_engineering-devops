@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 #a script to install and configure a load balancer (haproxy)
-apt-get install --no-install-recommends software-properties-common
+apt-get -y install --no-install-recommends software-properties-common
 add-apt-repository ppa:vbernat/haproxy-2.6
 sudo apt-get -y update
 sudo apt-get -y install haproxy
-sudo echo "ENABLED=1" > /etc/default/haproxy
 sudo echo "
 defaults
   mode http
@@ -21,4 +20,5 @@ backend elviso-back
   server 119436-web-01 100.26.177.25:80 check
   server 119436-web-02 52.23.213.63:80 check
 " > /etc/haproxy/haproxy.cfg
+sudo echo "ENABLED=1" > /etc/default/haproxy
 sudo service haproxy restart
