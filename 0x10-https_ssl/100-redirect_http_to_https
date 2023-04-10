@@ -10,7 +10,7 @@ defaults
 frontend elviso-front-http
   bind *:80
   reqadd X-Forwarded-Proto:\ http
-  redirect scheme https code 301 if !{ ssl_fc}
+  redirect scheme https code 301 if !{ ssl_fc } permanent
   default_backend elviso-back
 
 frontend elviso-front
@@ -20,6 +20,5 @@ frontend elviso-front
 
 backend elviso-back
   balance roundrobin
-  redirect scheme https code 301 if !{ ssl_fc }
   server 119436-web-01 100.26.177.25:80 check
   server 119436-web-02 52.23.213.63:80 check
