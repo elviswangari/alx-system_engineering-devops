@@ -9,13 +9,13 @@ defaults
 
 frontend elviso-front-http
   bind *:80
-  http-request set-header X-Forwarded-Proto http
+  reqadd X-Forwarded-Proto:\ http
   redirect scheme https code 301 if !{ ssl_fc}
   default_backend elviso-back
 
 frontend elviso-front
   bind *:443 crt /etc/haproxy/certs/elviswangari.tech.pem
-  http-request set-header X-Forwarded-Proto https
+  reqadd X-Forwarded-Proto:\ https
   default_backend elviso-back
 
 backend elviso-back
