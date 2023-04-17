@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+#a script to run whoami
+
+if [ $# -ne 1 ]; then
+  echo "Usage: ./0-iamsomeoneelse username"
+
+else
+  sudo -u "$1" whoami
+fi
