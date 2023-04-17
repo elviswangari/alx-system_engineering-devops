@@ -1,4 +1,4 @@
-#https and ssl
+# https and ssl
 
 in this repo well look at https and ssl termination in haproxy
 
