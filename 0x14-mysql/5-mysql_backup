@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+#a script that dumps mysql the compreses the output to a tar file
+
+if [ $# -ne 1 ]; then
+  echo "Usage: ./5-my-sql_backup <db password>"
+else
+  mysqldump -u root -p"$1" --all-databases > backup.sql
+  tar -czf "$(date '+%d-%m-%Y')".tar.gz backup.sql
+
+fi
