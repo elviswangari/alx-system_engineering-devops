@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" Using REST API to access data"""
+"""Using REST API to access data"""
 
 import requests
 import sys
