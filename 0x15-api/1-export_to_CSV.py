@@ -5,6 +5,10 @@ import requests
 import sys
 
 
+import requests
+import sys
+
+
 if __name__ == '__main__':
     employeeId = sys.argv[1]
     baseUrl = "https://jsonplaceholder.typicode.com/users"
@@ -19,6 +23,6 @@ if __name__ == '__main__':
 
     with open('{}.csv'.format(employeeId), 'w') as file:
         for task in tasks:
-            file.write('"{}", "{}", "{}", "{}"\n'
+            file.write('"{}","{}","{}","{}"\n'
                        .format(employeeId, username, task.get('completed'),
                                task.get('title')))
