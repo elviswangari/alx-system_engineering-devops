@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# a script to restarts or hung up processes
+pkill -HUP gunicorn
