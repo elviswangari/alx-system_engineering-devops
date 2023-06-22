@@ -1,54 +1,51 @@
 #!/usr/bin/python3
-""" raddit api"""
-
-import json
+"""
+This module prints sorted count of given keywords
+"""
 import requests
 
 
-def count_words(subreddit, word_list, after="", count=[]):
-    """count all words"""
-
-    if after == "":
-        count = [0] * len(word_list)
-
-    url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
-    request = requests.get(url,
-                           params={'after': after},
-                           allow_redirects=False,
-                           headers={'user-agent': 'bhalut'})
-
-    if request.status_code == 200:
-        data = request.json()
-
-        for topic in (data['data']['children']):
-            for word in topic['data']['title'].split():
-                for i in range(len(word_list)):
-                    if word_list[i].lower() == word.lower():
-                        count[i] += 1
-
-        after = data['data']['after']
-        if after is None:
-            save = []
-            for i in range(len(word_list)):
-                for j in range(i + 1, len(word_list)):
-                    if word_list[i].lower() == word_list[j].lower():
-                        save.append(j)
-                        count[i] += count[j]
-
-            for i in range(len(word_list)):
-                for j in range(i, len(word_list)):
-                    if (count[j] > count[i] or
-                            (word_list[i] > word_list[j] and
-                             count[j] == count[i])):
-                        aux = count[i]
-                        count[i] = count[j]
-                        count[j] = aux
-                        aux = word_list[i]
-                        word_list[i] = word_list[j]
-                        word_list[j] = aux
-
-            for i in range(len(word_list)):
-                if (count[i] > 0) and i not in save:
-                    print("{}: {}".format(word_list[i].lower(), count[i]))
+def count_words(subreddit, word_list, counts={}, after=""):
+    """
+        Recursive function to query Reddit API for given subreddit
+        Prints sorted count of given keywords
+    """
+    url = "https://api.reddit.com/r/{}?sort=hot".format(subreddit)
+    if after:
+        url = "{}&after={}".format(url, after)
+    headers = {'User-Agent': 'CustomClient/1.0'}
+    r = requests.get(url, headers=headers, allow_redirects=False)
+    if r.status_code != 200:
+        print_counts(counts)
+        return
+    r = r.json()
+    if 'data' in r:
+        data = r.get('data')
+        if not data.get('children'):
+            return hot_list
+        for post in data.get('children'):
+            for word in post.get('data').get('title').lower().split():
+                if word in word_list:
+                    if word in counts:
+                        counts[word] += 1
+                    else:
+                        counts[word] = 1
+        if not data.get('after'):
+            print_counts(counts)
         else:
-            count_words(subreddit, word_list, after, count)
+            count_words(subreddit, word_list, counts, data.get('after'))
+    else:
+        print_counts(counts)
+
+
+def print_counts(counts):
+    """
+        Sort and print values in counts
+    """
+    if not counts:
+        return
+    rev_counts = {}
+    for key, value in counts.items():
+        rev_counts[value] = key
+    for key in sorted(rev_counts, reverse=True):
+        print("{}: {:d}".format(rev_counts[key], key))
